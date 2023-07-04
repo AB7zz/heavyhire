@@ -31,7 +31,7 @@
             <!-- Card -->
             <?php
                 $query = "select * from available";
-                $run = $con->query($query);
+                $run = $connect->query($query);
                 while($row = $run->fetch_assoc()){
                     $Ufrom = $row['tfrom'];
                     $from = DateTime::createFromFormat('H:i:s.u', $Ufrom)->format('H:i');
@@ -40,7 +40,7 @@
                     $v_id = $row['v_id'];
                     $loc = $row['loc'];
                     $query_vehicle = "select * from vehicle where v_id = $v_id";
-                    $run_vehicle = $con->query($query_vehicle);
+                    $run_vehicle = $connect->query($query_vehicle);
                     $vehicle_data = $run_vehicle->fetch_assoc();
                     $brand = $vehicle_data['brand'];
                     $model = $vehicle_data['model'];
@@ -65,7 +65,8 @@
                     <div class='flex flex-col ml-auto'>
                         <button class='rounded text-white bg-red-800 py-2 px-3 hover:bg-red-700 w-[1005] mb-5'>Book</button>
                         <button onclick='document.getElementById('myForm').submit();' id='contact_button' class='rounded text-white bg-blue-800 py-2 px-3 hover:bg-blue-700 mb-5'>$phone</button>
-                        <button class='rounded text-white bg-black py-2 px-3 hover:bg-slate-700'>Message</button>
+                        <button class='rounded text-white bg-black py-2 px-3 hover:bg-slate-700' onclick='openChatDialog(<?php echo $phone; ?>)'>Message</button>
+
                     </div> 
                     <!-- Hidden form to trigger PHP code on button click -->
                     <form id='myForm' method='POST'>
@@ -73,6 +74,7 @@
                     </form>
                 </div>";
                 }
+                
 
             ?>
             <!-- Card -->
@@ -92,3 +94,6 @@
         echo "<script>document.getElementById('contact_button').innerHTML = 'ss';</script>";
     }
 ?>
+
+
+
